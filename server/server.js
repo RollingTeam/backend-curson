@@ -1,11 +1,25 @@
-const express = require('express')
+require('./config/config')
+
+const express = require("express");
+const mongoose = require("mongoose")
+const bodyParser= require("body-parser")
+
 const app = express()
-const port = 3005
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(require('./rutas/index'));
 
-app.listen(port, () => {
-  console.log(`Servidor online en puerto 3005`)
+mongoose.connect(process.env.URLDB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true
+}, (err, res)=>{
+    if (err) throw err;
+    console.log('Base de datos online')
+});
+
+app.listen(process.env.PORT, ()=>{
+    console.log('Servidor online en puerto ', process.env.PORT)
 })
