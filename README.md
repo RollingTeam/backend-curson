@@ -11,7 +11,7 @@
 ## Table of Contents
 
 - [Repo Owners](#repo-owners)
-- [Repo Owners](#teams-involved)
+- [Teams Involved](#teams-involved)
 - [Usage](#usage)
 
 
