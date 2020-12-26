@@ -12,7 +12,8 @@ let urlDB;
 if(process.env.NODE_ENV==='dev'){
     urlDB='mongodb://localhost:27017/curson'
 }else{
-    urlDB='Pegar la direccion de MongoAtlas'
+    //"mongodb+srv://user:Curson_246@cluster0.4thox.mongodb.net/curson"
+    urlDB= process.env.MONGO_URI
 }
 
 process.env.URLDB= urlDB
