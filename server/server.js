@@ -1,11 +1,32 @@
-const express = require('express')
-const app = express()
-const port = 3005
+require("./config/config");
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
-app.listen(port, () => {
-  console.log(`Servidor online en puerto 3005`)
-})
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(bodyParser.json());
+
+app.use(require('./rutas/usuario'))
+
+//Creamos conexion con mongoDB
+mongoose.connect(
+  "mongodb://localhost:27017/curson",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  },
+  (err, res) => {
+    if (err) throw err;
+    console.log("Base de datos online");
+  }
+);
+
+app.listen(process.env.PORT, () => {
+  console.log(`Servidor online en puerto: ${process.env.PORT}`);
+});
