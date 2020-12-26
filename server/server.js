@@ -14,7 +14,7 @@ app.use(require('./rutas/usuario'))
 
 //Creamos conexion con mongoDB
 mongoose.connect(
-  "mongodb://localhost:27017/curson",
+  process.env.URLDB,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
