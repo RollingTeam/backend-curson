@@ -1,5 +1,5 @@
 //=========PUERTO============
-process.env.PORT= 3005;
+process.env.PORT = 3005;
 
 //========DEFINIR ENTORNO=========
 process.env.NODE_ENV = 'dev';

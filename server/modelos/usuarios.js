@@ -34,6 +34,11 @@ let usuarioSchema = new Schema({
         unique: true
     },
 
+    password:{
+        type: String,
+        required: [true, 'Debes ingresar una contraseña']
+    },
+
     img: {
         type: String,
         required: false
