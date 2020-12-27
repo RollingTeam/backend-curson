@@ -1,12 +1,13 @@
 {
   "name": "backend_curson",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend creado para Proyecto Curson",
   "main": "index.js",
   "scripts": {
+    "start": "node server/server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Not Defined Team",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.0",
