@@ -55,7 +55,7 @@ app.get('/usuarios', (req, res) => {
           POST
 ------------------------*/
 
-app.post('/usuarios', [verificaToken, verificaRole], (req, res) => {
+app.post('/usuarios',[verificaToken, verificaRole],(req, res) => {
     let body = req.body;
 
     let usuario = new Usuario({
