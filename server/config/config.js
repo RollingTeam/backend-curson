@@ -20,5 +20,5 @@ process.env.URLDB= urlDB
 
 process.env.CADUCIDAD_TOKEN= "48h"
 
-process.env.SEED= process.env.SEED || "este_es_el_semilla"
+process.env.SEED= process.env.SEED || "este_es_el_seed"
 

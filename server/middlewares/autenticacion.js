@@ -1,24 +1,42 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
 let verificaToken = (req, res, next) => {
-  // req.get indico que viene por el header
-  let token = req.get("token");
+    
+    let token = req.get('token')
+    
+    jwt.verify(token, process.env.SEED, (err, decoded) =>{
 
-  jwt.verify(token, process.env.SEED, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({
-        ok: false,
-        err:{
-            message: "Token no valido"
-        },
-      });
-    }
-    req.usuario = decoded.usuario;
-    //Pongo next para que siga la ejecucion luego de validar el token
-    next();
-  });
+        if(err){
+            return res.status(401).json({
+                ok:false,
+                err:{
+                    message:'Token no válido'
+                }
+            })
+        };
+
+        req.usuario = decoded.usuario;
+
+        next();
+    });
 };
 
-module.exports = {
-  verificaToken,
+
+let verificaRole = (req, res, next) => {
+
+    let usuario = req.usuario;
+
+    if(usuario.role === 'ADMIN_ROLE'){
+        next()
+    } else {
+        return res.json({
+            ok: false,
+            err:{
+                message: 'El usuario no es administrador'
+            }
+        })
+    };
 };
+
+
+module.exports = {verificaToken, verificaRole}
