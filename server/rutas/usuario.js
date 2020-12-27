@@ -8,7 +8,9 @@ const app = express()
 
 const Usuario = require('../modelos/usuario')
 
-app.get("/usuario", (req, res) => {
+const {verificaToken} = require('../middlewares/autenticacion')
+
+app.get("/usuario", verificaToken, (req, res) => {
 
     let desde = req.query.desde || 0;
     desde = Number(desde);
