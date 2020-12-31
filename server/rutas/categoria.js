@@ -53,7 +53,7 @@ app.get("/categoria/:id", function (req, res) {
 });
 
 //-----------------Método POST---------------------------------
-app.post("/categoria", [verificaToken, verificaRole], (req, res) => {
+app.post("/categoria",/* [verificaToken, verificaRole],*/ (req, res) => {
   let body = req.body;
 
   let categoria = new Categoria({
@@ -82,7 +82,7 @@ app.post("/categoria", [verificaToken, verificaRole], (req, res) => {
 //===============================
 
 //----------------Método PUT-----------------------
-app.put("/categoria/:id", [verificaToken, verificaRole], (req, res) => {
+app.put("/categoria/:id", /*[verificaToken, verificaRole],*/ (req, res) => {
   let id = req.params.id;
   let body = req.body;
 
@@ -115,7 +115,7 @@ app.put("/categoria/:id", [verificaToken, verificaRole], (req, res) => {
 //----------------------------
 
 //-----------------------------Método Delete-------------------
-app.delete("/categoria/:id", [verificaToken, verificaRole], (req, res) => {
+app.delete("/categoria/:id", /*[verificaToken, verificaRole],*/ (req, res) => {
   let id = req.params.id;
 
   let estadoActualizado = {
