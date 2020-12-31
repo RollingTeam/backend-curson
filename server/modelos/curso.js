@@ -19,6 +19,10 @@ const cursoSchema = new Schema({
     type: Number,
     required: false,
   },
+  duracion: {
+    type: Number,
+    required: false,
+  },
   nivel: {
     type: String,
     enum: nivelesValidos,
