@@ -13,7 +13,7 @@ app.get("/curso", (req, res) => {
   let limite = req.query.limite || 5;
   limite = Number(limite);
 
-  Curso.find({ estado: true })
+  Curso.find({})
     .limit(limite) //limito registros a mostrar por página
     .skip(desde) //desde que registro comienzo a mostrar
     .sort("nombre") //ordeno la lista por nombre A-Z
@@ -64,13 +64,14 @@ app.get("/curso/:id", (req, res) => {
 
 //-------------POST curso -----------------
 
-app.post("/curso", [verificaToken, verificaRole], (req, res) => {
+app.post("/curso",/* [verificaToken, verificaRole],*/ (req, res) => {
   let body = req.body;
 
   let curso = new Curso({
     nombre: body.nombre,
     descripcion: body.descripcion,
     cupo: body.cupo,
+    duracion: body.duracion,
     nivel: body.nivel,
     contacto: body.contacto,
     categoria: body.categoria,
@@ -93,7 +94,7 @@ app.post("/curso", [verificaToken, verificaRole], (req, res) => {
 });
 
 //---------------PUT Curso ----------------------
-app.put("/curso/:id", [verificaToken, verificaRole], (req, res) => {
+app.put("/curso/:id", /*[verificaToken, verificaRole],*/ (req, res) => {
   let id = req.params.id;
 
   let body = req.body;
@@ -128,7 +129,7 @@ app.put("/curso/:id", [verificaToken, verificaRole], (req, res) => {
 });
 
 //---------------DELETE Curso -------------------------
-app.delete("/curso/:id", [verificaToken, verificaRole], (req, res) => {
+app.delete("/curso/:id", /*[verificaToken, verificaRole],*/ (req, res) => {
   let id = req.params.id;
 
   let estadoActualizado = {
