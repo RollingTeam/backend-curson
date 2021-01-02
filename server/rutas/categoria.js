@@ -8,7 +8,7 @@ let Categoria = require("../modelos/categoria");
 //-------METODO GET-------------
 
 app.get("/categoria", (req, res) => {
-  Categoria.find({ estado: true })
+  Categoria.find({})
     .sort("nombre")
     .exec((err, categorias) => {
       if (err) {
