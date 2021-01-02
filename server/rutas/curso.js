@@ -6,7 +6,7 @@ let Curso = require("../modelos/curso");
 
 //---Método GET
 
-app.get("/curso", (req, res) => {
+app.get("/admin/curso",[verificaToken, verificaRole],(req, res) => {
   let desde = req.query.desde || 0;
   desde = Number(desde);
 
@@ -14,6 +14,42 @@ app.get("/curso", (req, res) => {
   limite = Number(limite);
 
   Curso.find({})
+    .limit(limite) //limito registros a mostrar por página
+    .skip(desde) //desde que registro comienzo a mostrar
+    .sort("nombre") //ordeno la lista por nombre A-Z
+    .populate("categoria", "nombre") //traigo los datos segun id de categoria
+    .exec((err, cursos) => {
+      if (err) {
+        return res.status(500).json({
+          ok: false,
+          err,
+        });
+      }
+
+      Curso.count({ estado: true }, (err, conteo) => {
+        if (err) {
+          return res.status(400).json({
+            ok: false,
+            err,
+          });
+        }
+        res.json({
+          ok: true,
+          cursos,
+          cantidad: conteo,
+        });
+      });
+    });
+});
+
+app.get("/curso", (req, res) => {
+  let desde = req.query.desde || 0;
+  desde = Number(desde);
+
+  let limite = req.query.limite || 5;
+  limite = Number(limite);
+
+  Curso.find({estado:true})
     .limit(limite) //limito registros a mostrar por página
     .skip(desde) //desde que registro comienzo a mostrar
     .sort("nombre") //ordeno la lista por nombre A-Z
@@ -64,7 +100,7 @@ app.get("/curso/:id", (req, res) => {
 
 //-------------POST curso -----------------
 
-app.post("/curso",/* [verificaToken, verificaRole],*/ (req, res) => {
+app.post("/curso",[verificaToken, verificaRole],(req, res) => {
   let body = req.body;
 
   let curso = new Curso({
@@ -94,7 +130,7 @@ app.post("/curso",/* [verificaToken, verificaRole],*/ (req, res) => {
 });
 
 //---------------PUT Curso ----------------------
-app.put("/curso/:id", /*[verificaToken, verificaRole],*/ (req, res) => {
+app.put("/curso/:id",[verificaToken, verificaRole],(req, res) => {
   let id = req.params.id;
 
   let body = req.body;
@@ -129,7 +165,7 @@ app.put("/curso/:id", /*[verificaToken, verificaRole],*/ (req, res) => {
 });
 
 //---------------DELETE Curso -------------------------
-app.delete("/curso/:id", /*[verificaToken, verificaRole],*/ (req, res) => {
+app.delete("/curso/:id", [verificaToken, verificaRole], (req, res) => {
   let id = req.params.id;
 
   let estadoActualizado = {
