@@ -73,7 +73,7 @@ app.get("/usuarios/:id", function (req, res) {
           POST
 ------------------------*/
 
-app.post('/usuarios',[verificaToken, verificaRole],(req, res) => {
+app.post('/usuarios', (req, res) => {
     let body = req.body;
 
     let usuario = new Usuario({
