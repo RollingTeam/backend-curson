@@ -50,6 +50,24 @@ app.get('/usuarios', (req, res) => {
 
 });
 
+//---------- Consulta por ID-----------//
+
+app.get("/usuarios/:id", function (req, res) {
+    let id = req.params.id;
+    Usuario.findById(id, (err, usuarioDB) => {
+      if (err) {
+        return res.status(400).json({
+          ok: false,
+          err,
+        });
+      }
+      res.json({
+        ok: true,
+        usuario: usuarioDB,
+      });
+    });
+  });
+
 
 /*-----------------------
           POST
