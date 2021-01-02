@@ -6,7 +6,7 @@ let Curso = require("../modelos/curso");
 
 //---Método GET
 
-app.get("/admin/curso", (req, res) => {
+app.get("/admin/curso",[verificaToken, verificaRole],(req, res) => {
   let desde = req.query.desde || 0;
   desde = Number(desde);
 
@@ -100,7 +100,7 @@ app.get("/curso/:id", (req, res) => {
 
 //-------------POST curso -----------------
 
-app.post("/curso",/* [verificaToken, verificaRole],*/ (req, res) => {
+app.post("/curso",[verificaToken, verificaRole],(req, res) => {
   let body = req.body;
 
   let curso = new Curso({
@@ -130,7 +130,7 @@ app.post("/curso",/* [verificaToken, verificaRole],*/ (req, res) => {
 });
 
 //---------------PUT Curso ----------------------
-app.put("/curso/:id", /*[verificaToken, verificaRole],*/ (req, res) => {
+app.put("/curso/:id",[verificaToken, verificaRole],(req, res) => {
   let id = req.params.id;
 
   let body = req.body;
@@ -165,7 +165,7 @@ app.put("/curso/:id", /*[verificaToken, verificaRole],*/ (req, res) => {
 });
 
 //---------------DELETE Curso -------------------------
-app.delete("/curso/:id", /*[verificaToken, verificaRole],*/ (req, res) => {
+app.delete("/curso/:id", [verificaToken, verificaRole], (req, res) => {
   let id = req.params.id;
 
   let estadoActualizado = {
