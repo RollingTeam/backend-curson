@@ -98,6 +98,43 @@ app.get("/curso/:id", (req, res) => {
     });
 });
 
+app.get("/cursos/:categoria", (req, res) => {
+  let desde = req.query.desde || 0;
+  desde = Number(desde);
+
+  let limite = req.query.limite || 3;
+  limite = Number(limite);
+  let categoria =req.params.categoria;
+
+  Curso.find({estado:true, categoria:categoria})
+    .limit(limite) //limito registros a mostrar por página
+    .skip(desde) //desde que registro comienzo a mostrar
+    .sort("nombre") //ordeno la lista por nombre A-Z
+    .populate("categoria", "nombre") //traigo los datos segun id de categoria
+    .exec((err, cursos) => {
+      if (err) {
+        return res.status(500).json({
+          ok: false,
+          err,
+        });
+      }
+
+      Curso.count({ estado: true }, (err, conteo) => {
+        if (err) {
+          return res.status(400).json({
+            ok: false,
+            err,
+          });
+        }
+        res.json({
+          ok: true,
+          cursos,
+          cantidad: conteo,
+        });
+      });
+    });
+});
+
 //-------------POST curso -----------------
 
 app.post("/curso",[verificaToken, verificaRole],(req, res) => {
