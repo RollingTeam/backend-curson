@@ -8,7 +8,7 @@ let Review = require("../modelos/review");
 //-------METODO GET-------------
 
 app.get("/review", (req, res) => {
-  Review.find({})
+  Review.find({estado:true})
     .sort("created_at")
     .exec((err, reviews) => {
       if (err) {
@@ -17,7 +17,6 @@ app.get("/review", (req, res) => {
           err,
         });
       }
-
       res.json({
         ok: true,
         reviews,
@@ -28,7 +27,6 @@ app.get("/review", (req, res) => {
 //-----------------Método POST---------------------------------
 app.post("/review",[verificaToken], (req, res) => {
   let body = req.body;
-
   let review = new Review({
     user: body.user,
     curso: body.curso,
