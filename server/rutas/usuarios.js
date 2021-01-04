@@ -20,7 +20,7 @@ app.get('/usuarios', (req, res) => {
     cantidad = Number(cantidad);
 
 
-    Usuario.find({estado: true})
+    Usuario.find(/*{estado: true}*/)
     .skip(desde)
     .limit(cantidad)
     .exec((err,usuarios) => {
@@ -132,7 +132,7 @@ app.put('/usuarios/:id', [verificaToken, verificaRole], (req,res) =>{
           DELETE
 ------------------------*/
 
-app.delete('/usuario/:id', [verificaToken, verificaRole], (req, res) => {
+app.delete('/usuarios/:id', [verificaToken, verificaRole], (req, res) => {
     
     let id = req.params.id;
 
@@ -140,7 +140,7 @@ app.delete('/usuario/:id', [verificaToken, verificaRole], (req, res) => {
         estado: false
     }
 
-    Usuario.findByIdAndUpdate(id, estadoActualizado, {new: true}, (req, usuarioBorrado) => {
+    Usuario.findByIdAndUpdate(id, estadoActualizado, {new: true}, (err, usuarioBorrado) => {
         
         if(err){
             res.status(400).json({
@@ -152,7 +152,9 @@ app.delete('/usuario/:id', [verificaToken, verificaRole], (req, res) => {
         if(!usuarioBorrado){
             res.status(400).json({
                 ok: false,
-                message: 'Usuario no encontado'
+                err: {
+                  message: "Usuario no encontrado",
+                },
              });
         }
 
