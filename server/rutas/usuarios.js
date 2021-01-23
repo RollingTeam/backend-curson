@@ -13,16 +13,7 @@ const app = express();
 
 app.get('/usuarios', (req, res) => {
 
-    let desde = req.query.desde || 0;
-    desde = Number(desde)
-    
-    let cantidad = req.query.cantidad || 5;
-    cantidad = Number(cantidad);
-
-
-    Usuario.find(/*{estado: true}*/)
-    .skip(desde)
-    .limit(cantidad)
+    Usuario.find()
     .exec((err,usuarios) => {
         if(err){
             return res.status(400).json({
