@@ -6,7 +6,7 @@ let Solicitud = require("../modelos/solicitud");
 
 //---Método GET
 
-app.get("/admin/solicitud",[verificaToken, verificaRole],(req, res) => {
+app.get("/solicitud",[verificaToken, verificaRole],(req, res) => {
 
   Solicitud.find({})
     .sort("nombre")
@@ -19,7 +19,7 @@ app.get("/admin/solicitud",[verificaToken, verificaRole],(req, res) => {
         });
       }
 
-      Solicitudes.count((err, conteo) => {
+      Solicitud.count((err, conteo) => {
         if (err) {
           return res.status(400).json({
             ok: false,
@@ -35,9 +35,9 @@ app.get("/admin/solicitud",[verificaToken, verificaRole],(req, res) => {
     });
 });
 
-app.get("/admin/solicitud/:id", (req, res) => {
+app.get("/solicitud/:id", (req, res) => {
   let id = req.params.id;
-  Solicitudes.findById(id)
+  Solicitud.findById(id)
     .populate("curso", "nombre")
     .exec((err, solicitudDB) => {
       if (err) {
@@ -87,7 +87,7 @@ app.post("/solicitud",[verificaToken],(req, res) => {
 });
 
 //---------------PUT Solicitud ----------------------
-app.put("/admin/solicitud/:id",[verificaToken, verificaRole],(req, res) => {
+app.put("/solicitud/:id",[verificaToken, verificaRole],(req, res) => {
   let id = req.params.id;
   let body = req.body;
 
@@ -124,7 +124,7 @@ app.put("/admin/solicitud/:id",[verificaToken, verificaRole],(req, res) => {
 app.delete("/admin/solicitud/:id", [verificaToken, verificaRole], (req, res) => {
   let id = req.params.id;
   let estadoActualizado = {
-    estado: false
+    isActive: false 
   };
 
   Solicitud.findByIdAndUpdate(
