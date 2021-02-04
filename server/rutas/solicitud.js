@@ -121,7 +121,7 @@ app.put("/solicitud/:id",[verificaToken, verificaRole],(req, res) => {
 });
 
 //---------------DELETE Solicitud -------------------------
-app.delete("/admin/solicitud/:id", [verificaToken, verificaRole], (req, res) => {
+app.delete("/solicitud/:id", [verificaToken, verificaRole], (req, res) => {
   let id = req.params.id;
   let estadoActualizado = {
     isActive: false 
