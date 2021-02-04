@@ -55,14 +55,21 @@ app.get("/admin/solicitud/:id", (req, res) => {
     });
 });
 
-//-------------POST curso -----------------
+//-------------POST Solicitud -----------------
 
-app.post("/solicitud",[verificaToken, verificaRole],(req, res) => {
+app.post("/solicitud",[verificaToken],(req, res) => {
   let body = req.body;
 
   let solicitud = new Solicitud({
-    autor: body.autor,
-    curso: body.curso,
+    nombre: body.nombre,
+    descripcion: body.descripcion,
+    cupo: body.cupo,
+    duracion: body.duracion,
+    nivel: body.nivel,
+    contacto: body.contacto,
+    categoria: body.categoria,
+    img: body.img,
+    autor: boy.autor
   });
 
   solicitud.save((err, solicitudDB) => {
@@ -80,7 +87,7 @@ app.post("/solicitud",[verificaToken, verificaRole],(req, res) => {
   });
 });
 
-//---------------PUT Curso ----------------------
+//---------------PUT Solicitud ----------------------
 app.put("/admin/solicitud/:id",[verificaToken, verificaRole],(req, res) => {
   let id = req.params.id;
   let body = req.body;
@@ -114,7 +121,7 @@ app.put("/admin/solicitud/:id",[verificaToken, verificaRole],(req, res) => {
   );
 });
 
-//---------------DELETE Curso -------------------------
+//---------------DELETE Solicitud -------------------------
 app.delete("/admin/solicitud/:id", [verificaToken, verificaRole], (req, res) => {
   let id = req.params.id;
   let estadoActualizado = {
