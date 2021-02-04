@@ -59,7 +59,6 @@ app.get("/admin/solicitud/:id", (req, res) => {
 
 app.post("/solicitud",[verificaToken],(req, res) => {
   let body = req.body;
-
   let solicitud = new Solicitud({
     nombre: body.nombre,
     descripcion: body.descripcion,
@@ -69,7 +68,7 @@ app.post("/solicitud",[verificaToken],(req, res) => {
     contacto: body.contacto,
     categoria: body.categoria,
     img: body.img,
-    autor: boy.autor
+    autor: body.autor
   });
 
   solicitud.save((err, solicitudDB) => {
