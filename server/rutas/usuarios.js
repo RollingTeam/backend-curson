@@ -73,7 +73,8 @@ app.post('/usuarios', (req, res) => {
         userName: body.userName, 
         email: body.email,
         password: bcrypt.hashSync(body.password, 10),
-        role: body.role
+        role: body.role,
+        misFavoritos: body.misFavoritos
     })
 
     usuario.save((err, usuarioDB) => {
@@ -100,7 +101,7 @@ app.put('/usuarios/:id', [verificaToken, verificaRole], (req,res) =>{
 
     let id = req.params.id;
 
-    let body = _.pick(req.body, ['nombre', 'apellido', 'userName', 'img', 'role', 'estado'])
+    let body = _.pick(req.body, ['nombre', 'apellido', 'userName', 'img', 'role', 'estado', 'misFavoritos'])
 
     Usuario.findByIdAndUpdate(id, body, {new: true, runValidators: true}, (err, usuarioDB) => {
         

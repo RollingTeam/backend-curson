@@ -59,7 +59,12 @@ let usuarioSchema = new Schema({
     created_at:{
         type: Date,
         default: Date.now()
-    }
+    },
+
+    misFavoritos: [{
+        type: mongoose.Schema.ObjectId,
+        ref: 'Curso'
+    }]
 })
 
 usuarioSchema.plugin(uniqueValidator,{
