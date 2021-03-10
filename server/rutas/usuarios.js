@@ -59,6 +59,24 @@ app.get("/usuarios/:id", function (req, res) {
     });
   });
 
+//---------- Consulta por Email-----------//
+
+app.get("/usuarios/:email", function (req, res) {
+    let email = req.params.email;
+    Usuario.findById(email, (err, usuarioDB) => {
+      if (err) {
+        return res.status(400).json({
+          ok: false,
+          err,
+        });
+      }
+      res.json({
+        ok: true,
+        usuario: usuarioDB,
+      });
+    });
+  });
+
 
 /*-----------------------
           POST
