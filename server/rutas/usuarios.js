@@ -61,9 +61,9 @@ app.get("/usuarios/:id", function (req, res) {
 
 //---------- Consulta por Email-----------//
 
-app.get("/usuarios/:email", function (req, res) {
+app.get("/usuario/:email", async function (req, res) {
     let email = req.params.email;
-    Usuario.findById(email, (err, usuarioDB) => {
+    Usuario.findOne({email: email}, (err, usuarioDB) => {
       if (err) {
         return res.status(400).json({
           ok: false,
