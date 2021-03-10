@@ -20,16 +20,9 @@ let usuarioSchema = new Schema({
         required: [true, 'Debes ingresar tu apellido']
     },
 
-    userName:{
-        type: String,
-        required: [true, 'Debes ingresar tu usuario'],
-        trim: true,
-        unique:true
-    },
-
     email:{
         type: String,
-        required: [true, 'Debes ingresar tu usuario'],
+        required: [true, 'Debes ingresar un email'],
         trim: true,
         unique: true
     },

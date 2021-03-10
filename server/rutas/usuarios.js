@@ -70,7 +70,6 @@ app.post('/usuarios', (req, res) => {
     let usuario = new Usuario({
         nombre: body.nombre,
         apellido: body.apellido,
-        userName: body.userName, 
         email: body.email,
         password: bcrypt.hashSync(body.password, 10),
         role: body.role,
@@ -101,7 +100,7 @@ app.put('/usuarios/:id', [verificaToken, verificaRole], (req,res) =>{
 
     let id = req.params.id;
 
-    let body = _.pick(req.body, ['nombre', 'apellido', 'userName', 'img', 'role', 'estado', 'misFavoritos'])
+    let body = _.pick(req.body, ['nombre', 'apellido', 'img', 'role', 'estado', 'misFavoritos'])
 
     Usuario.findByIdAndUpdate(id, body, {new: true, runValidators: true}, (err, usuarioDB) => {
         
