@@ -82,7 +82,7 @@ app.get("/usuario/:email", async function (req, res) {
           POST
 ------------------------*/
 
-app.post('/usuarios', (req, res) => {
+app.post('/usuario', (req, res) => {
     let body = req.body;
 
     let usuario = new Usuario({
